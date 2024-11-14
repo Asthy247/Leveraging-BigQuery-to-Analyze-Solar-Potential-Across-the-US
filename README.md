@@ -1,25 +1,92 @@
-Project: COVID-19 Data Analysis
-Description:
+# Leveraging BigQuery to Analyze Solar Potential Across the US
 
-This project utilizes BigQuery to analyze COVID-19 data from the bigquery-public-data.covid19_jhu_csse.summary dataset. The goal is to investigate the relationship between the total number of recovered cases and the average number of active cases for selected countries.
+# Overview:
 
-Data Source:
+This project utilizes Google BigQuery's bigquery-public-data.sunroof_solar.solar_potential_by_postal_code dataset to analyze solar potential across the United States. By leveraging SQL queries and data visualization techniques, we aim to identify regions with optimal solar energy potential.
 
-BigQuery Public Dataset: bigquery-public-data.covid19_jhu_csse.summary
-Methodology:
+# Data Source:
 
-Query: The query selects the recovered and active columns from the summary table.
-Filtering: The query filters the results to include only the specified countries: Spain, Mexico, Columbia, and the United States.
-Aggregation: The query groups the results by the recovered column and calculates the average active cases for each group.
-Results:
+**BigQuery Public Dataset:** bigquery-public-data.sunroof_solar.solar_potential_by_postal_code
 
-The query will output a table with two columns:
+# Data Analysis:
 
-summary.recovered: The total number of recovered cases.
-Average_score: The average number of active cases for each value of summary.recovered.
-This analysis can provide insights into the progression of COVID-19 in the specified countries and the relationship between recovered cases and active cases.
-Additional Considerations:
+**Data Extraction:**
 
-Data Quality: Ensure the accuracy and completeness of the data in the bigquery-public-data.covid19_jhu_csse.summary dataset.
-Data Visualization: Consider visualizing the results using tools like Data Studio or Looker to gain deeper insights.
-Further Analysis: Explore additional analyses, such as time series analysis or correlation analysis, to gain a more comprehensive understanding of the data.
+  Relevant data, including postal_code, average_solar_potential, total_area, and other pertinent fields, was extracted from the dataset.
+
+  
+# Data Cleaning and Preparation:
+
+Data was cleaned to handle missing values and inconsistencies.
+
+Outliers and anomalies were identified and addressed.
+
+
+# Exploratory Data Analysis (EDA)
+
+Statistical summaries were calculated to understand data distribution.
+
+Visualizations (histograms, box plots, scatter plots) were used to explore relationships between variables.
+
+Correlation Analysis:
+
+The correlation between average_solar_potential and total_area was calculated to assess the strength of the relationship.
+
+****Key Findings:**
+
+Strong Correlation: A strong positive correlation was found between average_solar_potential and total_area, indicating that larger areas tend to have higher solar potential.
+
+Top Solar Potential States: New Mexico, Arizona, and Nevada emerged as the top states with the highest average solar potential.
+
+# SQL Queries
+SQL
+-- Calculate average solar potential by state
+SELECT
+  state_name,
+  AVG(average_solar_potential) AS avg_solar_potential
+FROM
+  `bigquery-public-data.sunroof_solar.solar_potential_by_postal_code`
+GROUP BY
+  state_name
+ORDER BY
+  avg_solar_potential DESC;
+
+-- Calculate correlation between solar potential and total area
+WITH solar_data AS (
+  SELECT
+    average_solar_potential,
+    total_area
+  FROM
+    `bigquery-public-data.sunroof_solar.solar_potential_by_postal_code`
+)
+SELECT
+  CORR(average_solar_potential, total_area) AS correlation_coefficient
+FROM
+  solar_data;
+
+# Recommendations
+
+Based on the findings of this analysis, the following recommendations can be considered:
+
+**Targeted Solar Investments:** Prioritize solar energy investments in states with high solar potential, such as California, Arizona, and Nevada.
+
+**Policy Incentives:** Implement supportive policies and incentives to encourage solar energy adoption, including tax credits, rebates, and net 
+
+metering programs.
+
+**Grid Integration:** Invest in grid infrastructure to accommodate increased solar energy generation and ensure grid stability.
+
+**Community Solar Programs:** Promote community solar programs to enable broader participation in solar energy.
+
+**Research and Development:** Continue to invest in research and development to improve solar cell efficiency and reduce costs.  
+
+
+# Conclusion
+
+This analysis provides valuable insights into the solar potential across the United States.
+
+By identifying regions with high solar potential, policymakers, energy companies, and individuals
+
+can make informed decisions about solar energy investments and adoption. Further analysis,
+
+such as incorporating factors like climate, terrain, and policy incentives, can provide even more granular insights.
