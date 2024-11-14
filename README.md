@@ -2,13 +2,16 @@
 
 # Overview:
 
-This project utilizes Google BigQuery's bigquery-public-data.sunroof_solar.solar_potential_by_postal_code dataset to analyze solar potential across the United States. By leveraging SQL queries and data visualization techniques, we aim to identify regions with optimal solar energy potential.
+This project utilizes Google BigQuery's bigquery-public-data.sunroof_solar.solar_potential_by_postal_code dataset to analyze solar potential across the United States. 
+
+By leveraging SQL queries and data visualization techniques, we aim to identify regions with optimal solar energy potential.
 
 # Data Source:
 
 **BigQuery Public Dataset:** bigquery-public-data.sunroof_solar.solar_potential_by_postal_code
 
 # Data Analysis:
+
 
 **Data Extraction:**
 
@@ -39,30 +42,9 @@ Strong Correlation: A strong positive correlation was found between average_sola
 Top Solar Potential States: New Mexico, Arizona, and Nevada emerged as the top states with the highest average solar potential.
 
 # SQL Queries
-SQL
--- Calculate average solar potential by state
-SELECT
-  state_name,
-  AVG(average_solar_potential) AS avg_solar_potential
-FROM
-  `bigquery-public-data.sunroof_solar.solar_potential_by_postal_code`
-GROUP BY
-  state_name
-ORDER BY
-  avg_solar_potential DESC;
 
--- Calculate correlation between solar potential and total area
-WITH solar_data AS (
-  SELECT
-    average_solar_potential,
-    total_area
-  FROM
-    `bigquery-public-data.sunroof_solar.solar_potential_by_postal_code`
-)
-SELECT
-  CORR(average_solar_potential, total_area) AS correlation_coefficient
-FROM
-  solar_data;
+<img width="305" alt="image" src="https://github.com/user-attachments/assets/51c3fb41-6e77-4329-b534-9d576d2a4d9e">
+
 
 # Recommendations
 
